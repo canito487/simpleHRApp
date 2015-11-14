@@ -99,33 +99,27 @@ def generateCredentials(fullName, jobTitle, currentEmail):
 
     emailText = []
 
-    if jobTitle == "1":
-        employee = SoftwareEngineer(fullName)
+    def compileCredentials(employee):
         emailText.append(employee.jobTitle())
         emailText.append(employee.calculate_wage())
         emailText.append(employee.generateId())
         emailText.append(employee.generateEmail())
+
+    if jobTitle == "1":
+        employee = SoftwareEngineer(fullName)
+        compileCredentials(employee)
 
     elif jobTitle == "2":
         employee = Recruiter(fullName)
-        emailText.append(employee.jobTitle())
-        emailText.append(employee.calculate_wage())
-        emailText.append(employee.generateId())
-        emailText.append(employee.generateEmail())
+        compileCredentials(employee)
 
     elif jobTitle == "3":
         employee = PlatformTestEngineer(fullName)
-        emailText.append(employee.jobTitle())
-        emailText.append(employee.calculate_wage())
-        emailText.append(employee.generateId())
-        emailText.append(employee.generateEmail())
+        compileCredentials(employee)
 
     elif jobTitle == "4":
         employee = HealthAdministrator(fullName)
-        emailText.append(employee.jobTitle())
-        emailText.append(employee.calculate_wage())
-        emailText.append(employee.generateId())
-        emailText.append(employee.generateEmail())
+        compileCredentials(employee)
 
     send_email(currentEmail, subjectText, emailText)
 
