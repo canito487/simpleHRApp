@@ -14,6 +14,7 @@ class Employee(object):
     @staticmethod
     def generateId():
         id = random.random()
+        id = "New ID: " + str(id)
         print "New ID: " + str(id)
         return id
 
@@ -22,7 +23,8 @@ class Employee(object):
         prefix = self.employee_name.lower()
         email = prefix + "@hernandez.com"
         email = email.replace(" ", "")
-        print "Email: " + email
+        email = "Email: " + email
+        print email
         return email
 
 
@@ -38,7 +40,8 @@ class SoftwareEngineer(Employee):
     @staticmethod
     def jobTitle():
         title = "Software Engineer"
-        print "Job Title: " + title
+        title = "Job Title: " + title
+        print title
         return title
 
 # Add your code below!
@@ -53,7 +56,8 @@ class Recruiter(Employee):
     @staticmethod
     def jobTitle():
         title = "Technical Recruiter"
-        print "Job Title: " + title
+        title = "Job Title: " + title
+        print title
         return title
 
 # Add your code below!
@@ -68,7 +72,8 @@ class PlatformTestEngineer(Employee):
     @staticmethod
     def jobTitle():
         title = "Platform Test Engineer"
-        print "Job Title: " + title
+        title = "Job Title: " + title
+        print title
         return title
 
 # Add your code below!
@@ -83,37 +88,70 @@ class HealthAdministrator(Employee):
     @staticmethod
     def jobTitle():
         title = "Health Administrator"
-        print "Job Title: " + title
+        title = "Job Title: " + title
+        print title
         return title
 
 
-def generateCredentials(fullName, jobTitle):
+def generateCredentials(fullName, jobTitle, currentEmail):
+
+    subjectText = fullName + "'s " + "Credentials"
+
+    emailText = []
 
     if jobTitle == "1":
         employee = SoftwareEngineer(fullName)
-        employee.jobTitle()
-        employee.calculate_wage()
-        employee.generateId()
-        employee.generateEmail()
+        emailText.append(employee.jobTitle())
+        emailText.append(employee.calculate_wage())
+        emailText.append(employee.generateId())
+        emailText.append(employee.generateEmail())
 
     elif jobTitle == "2":
         employee = Recruiter(fullName)
-        employee.jobTitle()
-        employee.calculate_wage()
-        employee.generateId()
-        employee.generateEmail()
+        emailText.append(employee.jobTitle())
+        emailText.append(employee.calculate_wage())
+        emailText.append(employee.generateId())
+        emailText.append(employee.generateEmail())
 
     elif jobTitle == "3":
         employee = PlatformTestEngineer(fullName)
-        employee.jobTitle()
-        employee.calculate_wage()
-        employee.generateId()
-        employee.generateEmail()
+        emailText.append(employee.jobTitle())
+        emailText.append(employee.calculate_wage())
+        emailText.append(employee.generateId())
+        emailText.append(employee.generateEmail())
 
     elif jobTitle == "4":
         employee = HealthAdministrator(fullName)
-        employee.jobTitle()
-        employee.calculate_wage()
-        employee.generateId()
-        employee.generateEmail()
+        emailText.append(employee.jobTitle())
+        emailText.append(employee.calculate_wage())
+        emailText.append(employee.generateId())
+        emailText.append(employee.generateEmail())
+
+    send_email(currentEmail, subjectText, emailText)
+
+def send_email(currentEmail, subject, body):
+    import smtplib
+
+    gmail_user = ""
+    gmail_pwd = ""
+    FROM = ""
+    TO = currentEmail if type(currentEmail) is list else [currentEmail]
+    SUBJECT = subject
+    TEXT = body
+
+    # Prepare actual message
+    message = """\From: %s\nTo: %s\nSubject: %s\n\n%s
+    """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
+    try:
+        # SMTP_SSL Example
+        server = smtplib.SMTP("smtp.gmail.com", 587)
+        server.ehlo()
+        server.starttls()
+        server.login(gmail_user, gmail_pwd)
+        server.sendmail(FROM, TO, message)
+        server.close()
+        print "\n"
+        print 'successfully sent the mail'
+    except:
+        print "failed to send mail"
 
