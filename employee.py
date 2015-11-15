@@ -3,6 +3,7 @@ __author__ = 'alex.hernandez'
 import random
 
 
+# Create a Base Employee Object
 class Employee(object):
     """Models real-life employees!"""
     def __init__(self, employee_name):
@@ -18,7 +19,6 @@ class Employee(object):
         print "New ID: " + str(id)
         return id
 
-
     def generateEmail(self):
         prefix = self.employee_name.lower()
         email = prefix + "@hernandez.com"
@@ -28,7 +28,7 @@ class Employee(object):
         return email
 
 
-# Add your code below!
+# Software Engineer Object
 class SoftwareEngineer(Employee):
 
     @staticmethod
@@ -44,7 +44,7 @@ class SoftwareEngineer(Employee):
         print title
         return title
 
-# Add your code below!
+# Recruiter Object
 class Recruiter(Employee):
 
     @staticmethod
@@ -60,7 +60,7 @@ class Recruiter(Employee):
         print title
         return title
 
-# Add your code below!
+# PlatformTestEngineer Object
 class PlatformTestEngineer(Employee):
 
     @staticmethod
@@ -76,7 +76,7 @@ class PlatformTestEngineer(Employee):
         print title
         return title
 
-# Add your code below!
+# Health Administrator Object
 class HealthAdministrator(Employee):
 
     @staticmethod
@@ -92,13 +92,14 @@ class HealthAdministrator(Employee):
         print title
         return title
 
-
+# This function generates the credentials of the new employee
 def generateCredentials(fullName, jobTitle, currentEmail, currentNumber):
 
     subjectText = fullName + "'s " + "Credentials"
 
     emailText = []
 
+    # This function compiles the credentials of the employee after new object has been instantiated
     def compileCredentials(employee):
         emailText.append(employee.jobTitle())
         emailText.append(employee.calculate_wage())
@@ -123,6 +124,7 @@ def generateCredentials(fullName, jobTitle, currentEmail, currentNumber):
 
     send_email(currentEmail, currentNumber, subjectText, emailText)
 
+# This function sends a confirmation email and text
 def send_email(currentEmail, currentNumber, subject, body):
     import smtplib
 
