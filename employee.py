@@ -93,7 +93,7 @@ class HealthAdministrator(Employee):
         return title
 
 
-def generateCredentials(fullName, jobTitle, currentEmail):
+def generateCredentials(fullName, jobTitle, currentEmail, currentNumber):
 
     subjectText = fullName + "'s " + "Credentials"
 
@@ -121,30 +121,51 @@ def generateCredentials(fullName, jobTitle, currentEmail):
         employee = HealthAdministrator(fullName)
         compileCredentials(employee)
 
-    send_email(currentEmail, subjectText, emailText)
+    send_email(currentEmail, currentNumber, subjectText, emailText)
 
-def send_email(currentEmail, subject, body):
+def send_email(currentEmail, currentNumber, subject, body):
     import smtplib
 
     gmail_user = ""
     gmail_pwd = ""
     FROM = ""
-    TO = currentEmail if type(currentEmail) is list else [currentEmail]
+    TOEMAIL = currentEmail if type(currentEmail) is list else [currentEmail]
+    TONUMBER = currentNumber + "@txt.att.net"
     SUBJECT = subject
     TEXT = body
 
-    # Prepare actual message
+    # Prepare to send email message
     message = """\From: %s\nTo: %s\nSubject: %s\n\n%s
-    """ % (FROM, ", ".join(TO), SUBJECT, TEXT)
+    """ % (FROM, ", ".join(TOEMAIL), SUBJECT, TEXT)
     try:
-        # SMTP_SSL Example
+
         server_ssl = smtplib.SMTP_SSL("smtp.gmail.com", 465)
         server_ssl.ehlo() # optional, called by login()
         server_ssl.login(gmail_user, gmail_pwd)
-        server_ssl.sendmail(FROM, TO, message)
+        server_ssl.sendmail(FROM, TOEMAIL, message)
         server_ssl.close()
         print "\n"
-        print 'successfully sent the mail'
+        print 'Succesfully sent the Email confirmation'
     except:
         print "failed to send mail"
+
+    # Prepare to send txt message
+    # Use sms gateway provided by mobile carrier:
+    # at&t:     number@txt.att.net
+    # t-mobile: number@tmomail.net
+    # verizon:  number@vtext.com
+    # sprint:   number@page.nextel.com
+    message = """\From: %s\nTo: %s\nSubject: %s\n\n%s
+    """ % (FROM, ", ".join(TONUMBER), SUBJECT, TEXT)
+    try:
+
+        server_ssl = smtplib.SMTP_SSL("smtp.gmail.com", 465)
+        server_ssl.ehlo() # optional, called by login()
+        server_ssl.login(gmail_user, gmail_pwd)
+        server_ssl.sendmail(FROM, TONUMBER, message)
+        server_ssl.close()
+        print "\n"
+        print 'Successfully sent the TXT'
+    except:
+        print "Failed to send TXT"
 

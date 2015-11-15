@@ -29,11 +29,13 @@ jobTitle = raw_input("What is his/hers job title: \n 1 = Software Engineer \n 2 
 
 currentEmail = raw_input("What is your current Email: ")
 
+currentNumber = raw_input("What is your current Phone #: ")
+
 print "\n"
 
 # Generate the Employee Credentials
 
-employee.generateCredentials(fullName, jobTitle, currentEmail)
+employee.generateCredentials(fullName, jobTitle, currentEmail, currentNumber)
 
 # Call the restart function
 
