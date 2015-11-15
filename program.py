@@ -1,8 +1,8 @@
-__author__ = 'alex.hernandez'
-
 import sys
 import os
 import employee
+
+__author__ = 'alex.hernandez'
 
 
 # Create the restart function to restart the program
@@ -25,9 +25,11 @@ fullName = raw_input("What is the New Hire's full name: ")
 jobTitle = raw_input("What is his/hers job title: \n 1 = Software Engineer \n 2 = Technical Recruiter "
                    "\n 3 = Platform Test Engineer \n 4 = Health Administrator \n > ")
 
-# Store the Job Title
+# Store the employee's email
 
 currentEmail = raw_input("What is your current Email: ")
+
+# Store the employee's current Phone #
 
 currentNumber = raw_input("What is your current Phone #: ")
 
