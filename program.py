@@ -12,7 +12,7 @@ def restart_program():
     python = sys.executable
     os.execl(python, python, *sys.argv)
 
-print "\n\n\nPRESS CTRL + C AT ANYTIME TO CLOSE THE PROGRAM"
+print "\nPRESS CTRL + C AT ANYTIME TO CLOSE THE PROGRAM"
 
 print "\n"
 
